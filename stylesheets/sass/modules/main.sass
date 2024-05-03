@@ -1,0 +1,45 @@
+@use "../variable" as v
+
+.header h1
+  font-size: 1.2rem
+  text-align: center
+
+.turn
+  display: flex
+  padding: 8px 16px
+
+.turn-item
+  padding: 8px
+  font-size: 1.5rem
+  width: 100%
+  text-align: center
+
+.turn-item.active
+  border-bottom: 4px solid black
+
+.state-message
+  padding: 8px
+  text-align: center
+
+.table
+  background: black
+  border: 2px solid #fefefe
+  margin: auto
+
+.cell
+  background: #fefefe
+  height: 48px
+  width: 48px
+  cursor: pointer
+  text-align: center
+  font-size: 2rem
+
+.button
+  display: inline-block
+  border: 2px solid black
+  border-radius: 4px
+  transition: all 0.5 ease
+  font-weight: bold
+  width: 100%
+  text-align: center
+  cursor: pointer
