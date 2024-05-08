@@ -22,7 +22,7 @@ cells.forEach((cell) => {
 
 function handleCellClick(event) {
   const cell = event.target;
-  const index = parseInt(cell.dataset.key, 10) - 1;
+  const index = parseInt(cell.dataset.key, 10);
   if (board[index] !== null || done) return;
   board[index] = currentPlayer;
   cell.textContent = currentPlayer === "circle" ? "○" : "×";
@@ -33,18 +33,12 @@ function handleCellClick(event) {
     done = true;
     removeClickListener();
   } else {
-    num++;
     currentPlayer = currentPlayer === "circle" ? "cross" : "circle";
-    updateTurnDisplay(num);
+    updateTurnDisplay();
   }
 }
 
-function updateTurnDisplay(num) {
-  if (num === 9) {
-    stateMessageElement.textContent = "draw";
-    done = true;
-    removeClickListener();
-  }
+function updateTurnDisplay() {
   const turnItems = document.querySelectorAll(".turn-item");
   turnItems.forEach((item) => {
     item.classList.remove("active");
@@ -52,13 +46,22 @@ function updateTurnDisplay(num) {
       item.classList.add("active");
     }
   });
+  playCount();
+}
+function playCount() {
+  num++;
+  if (num === 9) {
+    stateMessageElement.textContent = "draw";
+    done = true;
+    removeClickListener();
+  }
 }
 
 function checkWinner(cells, winningPatterns) {
   return winningPatterns.some((pattern) => {
     const [first, second, third] = pattern;
     return (
-      cells[first] !== null &&
+      cells[first] &&
       cells[first] === cells[second] &&
       cells[second] === cells[third]
     );
@@ -74,13 +77,3 @@ restart.addEventListener("click", restartGame);
 function restartGame() {
   location.reload();
 }
-
-restart.addEventListener("mouseover", function () {
-  restart.style.backgroundColor = "#000000";
-  restart.style.color = "#fefefe";
-});
-
-restart.addEventListener("mouseleave", function () {
-  restart.style.backgroundColor = "#fefefe";
-  restart.style.color = "#000000";
-});
